@@ -1,5 +1,10 @@
 package master2.tp.aoc;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 import master2.tp.aoc.activeobject.Canal;
 import master2.tp.aoc.activeobject.CanalImpl;
 import master2.tp.aoc.display.Display;
@@ -7,6 +12,8 @@ import master2.tp.aoc.generator.Generateur;
 import master2.tp.aoc.generator.GenerateurAsync;
 import master2.tp.aoc.generator.GenerateurImpl;
 import master2.tp.aoc.observer.Observer;
+import master2.tp.aoc.strategy.AlgoDiffusion;
+import master2.tp.aoc.strategy.DiffusionAtomique;
 
 /**
  * Hello world!
@@ -19,68 +26,40 @@ public class App {
 		scenarioM3();
 	}
 
-	public static void scenarioM1() {
-//		Generateur generateur = new GenerateurImpl();
-//
-//		ObservateurGenerateur display1 = new Afficheur();
-//		ObservateurGenerateur display2 = new Afficheur();
-//		ObservateurGenerateur display3 = new Afficheur();
-//		ObservateurGenerateur display4 = new Afficheur();
-//
-//		((Afficheur) display1).setName("Ecran1");
-//		((Afficheur) display2).setName("Ecran2");
-//		((Afficheur) display3).setName("Ecran3");
-//		((Afficheur) display4).setName("Ecran4");
-//
-//		generateur.attach(display1);
-//		generateur.attach(display2);
-//		generateur.attach(display3);
-//		generateur.attach(display4);
-//
-//		int loopParam = 10;
-//		for (int i = 0; i < loopParam; i++) {
-//			((GenerateurImpl) generateur).setValue(i);
-//			// Thread.sleep(100);
-//		}
-	}
-
-	public static void scenarioM3() {
+	public static void scenarioM3() throws InterruptedException {
 		Generateur generateur = new GenerateurImpl();
+		ExecutorService scheduler = Executors.newScheduledThreadPool(Integer.MAX_VALUE);
 
-		Canal canal1 = new CanalImpl(generateur);
-		Canal canal2 = new CanalImpl(generateur);
-		Canal canal3 = new CanalImpl(generateur);
-		Canal canal4 = new CanalImpl(generateur);
+		Canal canal1 = new CanalImpl(generateur, scheduler);
+		Canal canal2 = new CanalImpl(generateur, scheduler);
+		Canal canal3 = new CanalImpl(generateur, scheduler);
+		Canal canal4 = new CanalImpl(generateur, scheduler);
 
 		Observer<GenerateurAsync> display1 = new Display();
 		Observer<GenerateurAsync> display2 = new Display();
 		Observer<GenerateurAsync> display3 = new Display();
 		Observer<GenerateurAsync> display4 = new Display();
 		
-		canal1.attach(display1);
-		canal2.attach(display2);
-		canal3.attach(display3);
-		canal4.attach(display4);
-		
 		generateur.attach(canal1);
 		generateur.attach(canal2);
 		generateur.attach(canal3);
 		generateur.attach(canal4);
-
+		
 		((Display)display1).setName("M2EcranAsynchrone1");
 		((Display) display2).setName("M2EcranAsynchrone2");
 		((Display) display3).setName("M2EcranAsynchrone3");
 		((Display) display4).setName("M2EcranAsynchrone4");
 
-//		generateur.attach(display1);
-//		generateur.attach(display2);
-//		generateur.attach(display3);
-//		generateur.attach(display4);
-
-		int loopParam = 10;
-		for (int i = 0; i < loopParam; i++) {
-			((GenerateurImpl) generateur).setValue(i);
-			// Thread.sleep(100);
-		}
+		canal1.attach(display1);
+		canal2.attach(display2);
+		canal3.attach(display3);
+		canal4.attach(display4);
+		
+		AlgoDiffusion atomique = new DiffusionAtomique(generateur);
+		((GenerateurImpl) generateur).addStrategy(atomique);
+		
+		// schedule l'appel a generate() toutes les n ms
+		ScheduledExecutorService service = Executors.newScheduledThreadPool(1);
+		service.scheduleAtFixedRate(((GenerateurImpl) generateur)::generate, 0, 1000, TimeUnit.MILLISECONDS);
 	}
 }

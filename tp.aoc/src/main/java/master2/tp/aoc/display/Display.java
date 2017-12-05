@@ -1,8 +1,6 @@
 package master2.tp.aoc.display;
 
 
-import java.util.concurrent.Future;
-
 import master2.tp.aoc.generator.GenerateurAsync;
 import master2.tp.aoc.observer.Observer;
 
@@ -17,7 +15,11 @@ public class Display implements Observer<GenerateurAsync> {
 
 	@Override
 	public void update(GenerateurAsync subject) {
-		Future<Integer> value = subject.getValue();
-		System.out.println(this.name + ": " + subject.getValue());
+		try {
+			Integer a = subject.getValue().get();
+			System.out.println(this.name + " future value : " + a);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
