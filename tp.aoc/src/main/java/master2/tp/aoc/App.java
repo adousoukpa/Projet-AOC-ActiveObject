@@ -14,6 +14,7 @@ import master2.tp.aoc.generator.GenerateurImpl;
 import master2.tp.aoc.observer.Observer;
 import master2.tp.aoc.strategy.AlgoDiffusion;
 import master2.tp.aoc.strategy.DiffusionAtomique;
+import master2.tp.aoc.strategy.DiffusionSequentielle;
 
 /**
  * Hello world!
@@ -56,10 +57,11 @@ public class App {
 		canal4.attach(display4);
 		
 		AlgoDiffusion atomique = new DiffusionAtomique(generateur);
+//		AlgoDiffusion atomique = new DiffusionSequentielle(generateur);
 		((GenerateurImpl) generateur).addStrategy(atomique);
 		
 		// schedule l'appel a generate() toutes les n ms
 		ScheduledExecutorService service = Executors.newScheduledThreadPool(1);
-		service.scheduleAtFixedRate(((GenerateurImpl) generateur)::generate, 0, 1000, TimeUnit.MILLISECONDS);
+		service.scheduleAtFixedRate(((GenerateurImpl) generateur)::generate, 0, 250, TimeUnit.MILLISECONDS);
 	}
 }
