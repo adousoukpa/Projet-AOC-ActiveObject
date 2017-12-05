@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="500.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+  <children>
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="300.0" prefWidth="500.0">
+      <children>
+
+        <GridPane layoutX="20.0" layoutY="20.0" prefHeight="100.0" prefWidth="500.0"  hgap="20">
+          <children>
+            <Pane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #cccccc&#10;" GridPane.columnIndex="0" GridPane.margin="$x1" GridPane.rowIndex="0">
+              <children>
+                <Label fx:id="Afficheur1" alignment="CENTER" layoutX="20.0" layoutY="38.0" text="Aff1" textFill="BLACK">
+                  <font>
+                    <Font name="System Bold" size="20.0" />
+                  </font>
+                </Label>
+              </children>
+            </Pane>
+            <Pane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #cccccc&#10;" GridPane.columnIndex="1" GridPane.margin="$x1" GridPane.rowIndex="0">
+              <children>
+                <Label fx:id="Afficheur2" alignment="CENTER" layoutX="20.0" layoutY="38.0" text="Aff2" textFill="BLACK">
+                  <font>
+                    <Font name="System Bold" size="20.0" />
+                  </font>
+                </Label>
+              </children>
+            </Pane>
+            <Pane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #cccccc&#10;" GridPane.columnIndex="2" GridPane.margin="$x1" GridPane.rowIndex="0">
+              <children>
+                <Label fx:id="Afficheur3" alignment="CENTER" layoutX="20.0" layoutY="38.0" text="Aff3" textFill="BLACK">
+                  <font>
+                    <Font name="System Bold" size="20.0" />
+                  </font>
+                </Label>
+              </children>
+            </Pane>
+            <Pane prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #cccccc&#10;" GridPane.columnIndex="3" GridPane.margin="$x1" GridPane.rowIndex="0">
+              <children>
+                <Label fx:id="Afficheur4" alignment="CENTER" layoutX="20.0" layoutY="38.0" text="Aff4" textFill="BLACK">
+                  <font>
+                    <Font name="System Bold" size="20.0" />
+                  </font>
+                </Label>
+              </children>
+            </Pane>
+          </children>
+        </GridPane>
+
+        <Label alignment="CENTER" layoutX="20.0" layoutY="140.0" text="Stratégie :" textFill="BLACK">
+          <font>
+            <Font name="System Bold" size="20.0" />
+          </font>
+        </Label>
+
+        <RadioButton fx:id="RBatomic" layoutX="150.0" layoutY="145.0" mnemonicParsing="false" text="Atomic" >
+          <toggleGroup>
+            <ToggleGroup fx:id="toggleGroup"/>
+          </toggleGroup>
+        </RadioButton>
+
+        <RadioButton fx:id="RBsequential" layoutX="150.0" layoutY="175.0" mnemonicParsing="false" text="Sequential" toggleGroup="$toggleGroup" />
+
+        <Button fx:id="BPstart" layoutX="20.0" layoutY="220.0" mnemonicParsing="false" text="Start" prefHeight="40.0" prefWidth="100.0">
+          <font>
+            <Font name="System Bold" size="20.0" />
+          </font>
+        </Button>
+
+        <Button fx:id="BPstop" layoutX="140.0" layoutY="220.0" mnemonicParsing="false" text="Stop" prefHeight="40.0" prefWidth="100.0">
+          <font>
+            <Font name="System Bold" size="20.0" />
+          </font>
+        </Button>
+
+      </children>
+    </AnchorPane>
+  </children>
+</AnchorPane>
