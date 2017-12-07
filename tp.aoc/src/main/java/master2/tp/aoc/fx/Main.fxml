@@ -8,7 +8,7 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="500.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+<AnchorPane fx:controller="master2.tp.aoc.fx.Controleur" id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="500.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="300.0" prefWidth="500.0">
       <children>
@@ -68,13 +68,13 @@
 
         <RadioButton fx:id="RBsequential" layoutX="150.0" layoutY="175.0" mnemonicParsing="false" text="Sequential" toggleGroup="$toggleGroup" />
 
-        <Button fx:id="BPstart" layoutX="20.0" layoutY="220.0" mnemonicParsing="false" text="Start" prefHeight="40.0" prefWidth="100.0">
+        <Button fx:id="BPstart" layoutX="20.0" layoutY="220.0" mnemonicParsing="false" text="Start" prefHeight="40.0" prefWidth="100.0" onAction="#start">
           <font>
             <Font name="System Bold" size="20.0" />
           </font>
         </Button>
 
-        <Button fx:id="BPstop" layoutX="140.0" layoutY="220.0" mnemonicParsing="false" text="Stop" prefHeight="40.0" prefWidth="100.0">
+        <Button fx:id="BPstop" layoutX="140.0" layoutY="220.0" mnemonicParsing="false" text="Stop" prefHeight="40.0" prefWidth="100.0" onAction="#stop">
           <font>
             <Font name="System Bold" size="20.0" />
           </font>
