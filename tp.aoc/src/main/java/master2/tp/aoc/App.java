@@ -14,16 +14,9 @@ import master2.tp.aoc.generator.GenerateurImpl;
 import master2.tp.aoc.observer.Observer;
 import master2.tp.aoc.strategy.AlgoDiffusion;
 import master2.tp.aoc.strategy.DiffusionAtomique;
-import master2.tp.aoc.strategy.DiffusionSequentielle;
 
-/**
- * Hello world!
- *
- */
 public class App {
 	public static void main(String[] args) throws InterruptedException {
-		System.out.println("Hello World!");
-		
 		scenarioM3();
 	}
 
@@ -40,13 +33,13 @@ public class App {
 		Observer<GenerateurAsync> display2 = new Display();
 		Observer<GenerateurAsync> display3 = new Display();
 		Observer<GenerateurAsync> display4 = new Display();
-		
+
 		generateur.attach(canal1);
 		generateur.attach(canal2);
 		generateur.attach(canal3);
 		generateur.attach(canal4);
-		
-		((Display)display1).setName("M2EcranAsynchrone1");
+
+		((Display) display1).setName("M2EcranAsynchrone1");
 		((Display) display2).setName("M2EcranAsynchrone2");
 		((Display) display3).setName("M2EcranAsynchrone3");
 		((Display) display4).setName("M2EcranAsynchrone4");
@@ -55,11 +48,11 @@ public class App {
 		canal2.attach(display2);
 		canal3.attach(display3);
 		canal4.attach(display4);
-		
+
 		AlgoDiffusion atomique = new DiffusionAtomique(generateur);
-//		AlgoDiffusion atomique = new DiffusionSequentielle(generateur);
+		// AlgoDiffusion sequentielle = new DiffusionSequentielle(generateur);
 		((GenerateurImpl) generateur).addStrategy(atomique);
-		
+
 		// schedule l'appel a generate() toutes les n ms
 		ScheduledExecutorService service = Executors.newScheduledThreadPool(1);
 		service.scheduleAtFixedRate(((GenerateurImpl) generateur)::generate, 0, 250, TimeUnit.MILLISECONDS);
