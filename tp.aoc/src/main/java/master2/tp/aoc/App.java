@@ -29,10 +29,10 @@ public class App {
 		Canal canal3 = new CanalImpl(generateur, scheduler);
 		Canal canal4 = new CanalImpl(generateur, scheduler);
 
-		Observer<GenerateurAsync> display1 = new Display();
-		Observer<GenerateurAsync> display2 = new Display();
-		Observer<GenerateurAsync> display3 = new Display();
-		Observer<GenerateurAsync> display4 = new Display();
+		Observer<GenerateurAsync> display1 = new Display(null);
+		Observer<GenerateurAsync> display2 = new Display(null);
+		Observer<GenerateurAsync> display3 = new Display(null);
+		Observer<GenerateurAsync> display4 = new Display(null);
 
 		generateur.attach(canal1);
 		generateur.attach(canal2);

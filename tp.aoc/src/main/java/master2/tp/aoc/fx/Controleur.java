@@ -69,10 +69,12 @@ public class Controleur implements Initializable {
 		Canal canal3 = new CanalImpl(generateur, scheduler);
 		Canal canal4 = new CanalImpl(generateur, scheduler);
 
-		Observer<GenerateurAsync> display1 = new Display();
-		Observer<GenerateurAsync> display2 = new Display();
-		Observer<GenerateurAsync> display3 = new Display();
-		Observer<GenerateurAsync> display4 = new Display();
+		
+		
+		Observer<GenerateurAsync> display1 = new Display(Afficheur1);
+		Observer<GenerateurAsync> display2 = new Display(Afficheur2);
+		Observer<GenerateurAsync> display3 = new Display(Afficheur3);
+		Observer<GenerateurAsync> display4 = new Display(Afficheur4);
 
 		generateur.attach(canal1);
 		generateur.attach(canal2);
