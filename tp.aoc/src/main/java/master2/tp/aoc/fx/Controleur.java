@@ -30,7 +30,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Controleur implements Initializable {
 
-	private static final int GENERATION_VALUE_FREQUENCY = 500;
+	private static final int GENERATION_VALUE_FREQUENCY = 300;
 	@FXML
 	private Label Afficheur1;
 	@FXML
@@ -73,7 +73,7 @@ public class Controleur implements Initializable {
 
 		
 		
-		Observer<GenerateurAsync> display1 = new Display(Afficheur1, 0);
+		Observer<GenerateurAsync> display1 = new Display(Afficheur1, 250);
 		Observer<GenerateurAsync> display2 = new Display(Afficheur2, 500);
 		Observer<GenerateurAsync> display3 = new Display(Afficheur3, 1000);
 		Observer<GenerateurAsync> display4 = new Display(Afficheur4, 1500);
@@ -93,10 +93,28 @@ public class Controleur implements Initializable {
 		canal3.attach(display3);
 		canal4.attach(display4);
 
-//		AlgoDiffusion atomique = new DiffusionAtomique(generateur);
-		AlgoDiffusion atomique = new DiffusionSequentielle(generateur);
-		((GenerateurImpl) generateur).addStrategy(atomique);
+		// Configuration des stratégies et des boutons "setters"
+		AlgoDiffusion atomique = new DiffusionAtomique(generateur);
+		AlgoDiffusion sequentielle = new DiffusionSequentielle(generateur);
+		
+		RBatomic.setOnAction((event) -> {
+			this.setStrategy(atomique);
+		});
+		
+		RBsequential.setOnAction((event) -> {
+			this.setStrategy(sequentielle);
+		});
+		
+		// IHM INITIALISATION PAR DEFAUT
+		RBatomic.setSelected(true);
+		BPstop.setDisable(true);
 
+		// On initialise une stratégie initiale pour le générateur
+		((GenerateurImpl) generateur).addStrategy(atomique);
+	}
+	
+	private void setStrategy(AlgoDiffusion strategy) {		
+		((GenerateurImpl) generateur).addStrategy(strategy);
 	}
 
 	@FXML
@@ -106,15 +124,19 @@ public class Controleur implements Initializable {
 			service = Executors.newScheduledThreadPool(1);
 			service.scheduleAtFixedRate(((GenerateurImpl) generateur)::generate, 0, GENERATION_VALUE_FREQUENCY, TimeUnit.MILLISECONDS);
 			running = true;
+			BPstart.setDisable(true);
+			BPstop.setDisable(false);
 		}
 	}
 
 	@FXML
 	private void stop(ActionEvent event) {
-		if (running) {
+		if (running && service != null) {
 			service.shutdown();
 			running = false;
+			BPstart.setDisable(false);
+			BPstop.setDisable(true);
 		}
 	}
-
+	
 }
