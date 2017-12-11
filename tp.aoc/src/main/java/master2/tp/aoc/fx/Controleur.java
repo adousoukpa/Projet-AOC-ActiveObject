@@ -19,6 +19,7 @@ import master2.tp.aoc.generator.GenerateurImpl;
 import master2.tp.aoc.observer.Observer;
 import master2.tp.aoc.strategy.AlgoDiffusion;
 import master2.tp.aoc.strategy.DiffusionAtomique;
+import master2.tp.aoc.strategy.DiffusionSequentielle;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -29,6 +30,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Controleur implements Initializable {
 
+	private static final int GENERATION_VALUE_FREQUENCY = 500;
 	@FXML
 	private Label Afficheur1;
 	@FXML
@@ -71,10 +73,10 @@ public class Controleur implements Initializable {
 
 		
 		
-		Observer<GenerateurAsync> display1 = new Display(Afficheur1);
-		Observer<GenerateurAsync> display2 = new Display(Afficheur2);
-		Observer<GenerateurAsync> display3 = new Display(Afficheur3);
-		Observer<GenerateurAsync> display4 = new Display(Afficheur4);
+		Observer<GenerateurAsync> display1 = new Display(Afficheur1, 0);
+		Observer<GenerateurAsync> display2 = new Display(Afficheur2, 500);
+		Observer<GenerateurAsync> display3 = new Display(Afficheur3, 1000);
+		Observer<GenerateurAsync> display4 = new Display(Afficheur4, 1500);
 
 		generateur.attach(canal1);
 		generateur.attach(canal2);
@@ -91,7 +93,8 @@ public class Controleur implements Initializable {
 		canal3.attach(display3);
 		canal4.attach(display4);
 
-		AlgoDiffusion atomique = new DiffusionAtomique(generateur);
+//		AlgoDiffusion atomique = new DiffusionAtomique(generateur);
+		AlgoDiffusion atomique = new DiffusionSequentielle(generateur);
 		((GenerateurImpl) generateur).addStrategy(atomique);
 
 	}
@@ -101,7 +104,7 @@ public class Controleur implements Initializable {
 		if (!running) { // Si le générateur n'est pas déjà lancé
 			// schedule l'appel a generate() toutes les n ms
 			service = Executors.newScheduledThreadPool(1);
-			service.scheduleAtFixedRate(((GenerateurImpl) generateur)::generate, 0, 1000, TimeUnit.MILLISECONDS);
+			service.scheduleAtFixedRate(((GenerateurImpl) generateur)::generate, 0, GENERATION_VALUE_FREQUENCY, TimeUnit.MILLISECONDS);
 			running = true;
 		}
 	}
