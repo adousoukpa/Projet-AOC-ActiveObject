@@ -66,10 +66,10 @@ public class Controleur implements Initializable {
 		generateur = new GenerateurImpl();
 		ExecutorService scheduler = Executors.newScheduledThreadPool(Integer.MAX_VALUE);
 
-		Canal canal1 = new CanalImpl(generateur, scheduler);
-		Canal canal2 = new CanalImpl(generateur, scheduler);
-		Canal canal3 = new CanalImpl(generateur, scheduler);
-		Canal canal4 = new CanalImpl(generateur, scheduler);
+		Canal canal1 = new CanalImpl(generateur, scheduler, 250);
+		Canal canal2 = new CanalImpl(generateur, scheduler, 500);
+		Canal canal3 = new CanalImpl(generateur, scheduler, 1000);
+		Canal canal4 = new CanalImpl(generateur, scheduler, 1500);
 
 		
 		
