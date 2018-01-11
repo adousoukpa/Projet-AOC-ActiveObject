@@ -83,9 +83,13 @@ public class CanalImpl implements Canal {
 	 */
 	@Override
 	public Future<Integer> getValue() {
-		return this.scheduler.submit(() -> {
+		return ((ScheduledExecutorService) this.scheduler).schedule(() -> {
 			return this.generator.getValue();
-		});
+		}, 0, TimeUnit.MILLISECONDS);
+		
+//		return this.scheduler.submit(() -> {
+//			return this.generator.getValue();
+//		});
 	}
 
 	/**
